@@ -17,6 +17,7 @@ var AUD_DIR string = "./downloaded_audio/"
 func DownloadVideo(videoID string) string {
 	test := time.Now()
 	client := youtube.Client{}
+	
 	video, err := client.GetVideo(videoID)
 	if err != nil {
 		log.Println(err)

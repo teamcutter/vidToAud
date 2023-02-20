@@ -6,5 +6,5 @@ import (
 )
 
 func SetUpRoutes(s *gin.Engine) {
-	s.GET("/:videoID", handlers.Search)
+	s.GET("/:videoID/:audioRequired", handlers.Search)
 }

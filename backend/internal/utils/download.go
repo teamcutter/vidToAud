@@ -1,15 +1,22 @@
 package utils
 
 import (
+
 	"io"
 	"log"
 	"os"
+	"os/exec"
+	"time"
+
 	"github.com/kkdai/youtube/v2"
 )
 
-func Download(videoID string) {
-	client := youtube.Client{}
+var VID_DIR string = "./downloaded_video/"
+var AUD_DIR string = "./downloaded_audio/"
 
+func DownloadVideo(videoID string) string {
+	test := time.Now()
+	client := youtube.Client{}
 	video, err := client.GetVideo(videoID)
 	if err != nil {
 		log.Println(err)
@@ -20,14 +27,9 @@ func Download(videoID string) {
 	if err != nil {
 		log.Println(err)
 	}
-	
-	/* createdAt := time.Now().Format("01-02-2006-15:04:05")
-	if err != nil {
-		log.Println(err)
-	}
-	log.Println(createdAt) */
+	log.Println(time.Since(test))
+	file, err := os.Create(VID_DIR + videoID + ".mp4")
 
-	file, err := os.Create("./downloaded/" + videoID + ".mp4")
 	if err != nil {
 		log.Println(err)
 	}
@@ -35,6 +37,16 @@ func Download(videoID string) {
 
 	_, err = io.Copy(file, stream)
 	if err != nil {
+		log.Println(err)
+	}
+	log.Println(time.Since(test))
+	log.Println("File installed!")
+	return videoID
+}
+
+func ExtractAudio(fileName string) {
+	cmd := exec.Command("ffmpeg", "-y", "-i", VID_DIR+fileName+".mp4", AUD_DIR+fileName+".mp3")
+	if err := cmd.Run(); err != nil {
 		log.Println(err)
 	}
 }

@@ -22,10 +22,6 @@ func Search(c *gin.Context) {
 	}
 
 	c.IndentedJSON(http.StatusOK, gin.H{
-		"message" : "Success!",
+		"message": "Success!",
 	})
-}
-
-func CleanCache(с *gin.Context) {
-	
 }

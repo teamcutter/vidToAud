@@ -1,7 +1,6 @@
 package utils
 
 import (
-
 	"io"
 	"log"
 	"os"
@@ -17,7 +16,7 @@ var AUD_DIR string = "./downloaded_audio/"
 func DownloadVideo(videoID string) string {
 	test := time.Now()
 	client := youtube.Client{}
-	
+
 	video, err := client.GetVideo(videoID)
 	if err != nil {
 		log.Println(err)
@@ -29,7 +28,8 @@ func DownloadVideo(videoID string) string {
 		log.Println(err)
 	}
 	log.Println(time.Since(test))
-	file, err := os.Create(VID_DIR + videoID + ".mp4")
+	filename := CreateFilename(videoID, time.Now())
+	file, err := os.Create(VID_DIR + filename + ".mp4")
 
 	if err != nil {
 		log.Println(err)
@@ -42,7 +42,7 @@ func DownloadVideo(videoID string) string {
 	}
 	log.Println(time.Since(test))
 	log.Println("File installed!")
-	return videoID
+	return filename
 }
 
 func ExtractAudio(fileName string) {

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/teamcutter/vidToAud/backend/internal/config"
 	"github.com/teamcutter/vidToAud/backend/internal/routes"
 
 	"github.com/gin-gonic/gin"
@@ -8,7 +9,8 @@ import (
 
 func main() {
 
+	conf := config.GetConfig()
 	server := gin.Default()
-	routes.SetUpRoutes(server)
+	routes.SetUpRoutes(server, conf)
 	server.Run(":8080")
 }

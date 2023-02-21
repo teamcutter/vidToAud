@@ -14,7 +14,6 @@ var VID_DIR string = "./downloaded_video/"
 var AUD_DIR string = "./downloaded_audio/"
 
 func DownloadVideo(videoID string) string {
-	test := time.Now()
 	client := youtube.Client{}
 
 	video, err := client.GetVideo(videoID)
@@ -27,7 +26,8 @@ func DownloadVideo(videoID string) string {
 	if err != nil {
 		log.Println(err)
 	}
-	log.Println(time.Since(test))
+	defer stream.Close()
+
 	filename := CreateFilename(videoID, time.Now())
 	file, err := os.Create(VID_DIR + filename + ".mp4")
 
@@ -40,7 +40,6 @@ func DownloadVideo(videoID string) string {
 	if err != nil {
 		log.Println(err)
 	}
-	log.Println(time.Since(test))
 	log.Println("File installed!")
 	return filename
 }

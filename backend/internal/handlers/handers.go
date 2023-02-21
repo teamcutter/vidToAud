@@ -20,7 +20,12 @@ func Search(c *gin.Context) {
 	if audioRequired == 1 {
 		utils.ExtractAudio(fileName)
 	}
+
 	c.IndentedJSON(http.StatusOK, gin.H{
 		"message" : "Success!",
 	})
+}
+
+func CleanCache(с *gin.Context) {
+	
 }

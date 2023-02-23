@@ -1,14 +1,21 @@
 package config
 
 import (
+	"log"
+
 	"github.com/spf13/viper"
 )
 
 type Configuration struct {
-	Token string
+	Token      string
+	STATIC_DIR string
+	VID_PATH   string
+	AUD_PATH   string
 }
 
-func GetConfig() Configuration {
+var Conf Configuration
+
+func GetConfig() {
 	conf := Configuration{}
 
 	viper.SetConfigName("config")
@@ -25,5 +32,6 @@ func GetConfig() Configuration {
 		panic(err)
 	}
 
-	return conf
+	Conf = conf
+	log.Println(Conf.STATIC_DIR)
 }

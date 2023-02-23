@@ -1,1 +1,4 @@
 token: DSJKFKLSFJSAKLFJkjdsfksdfjISJSDLFJ93842374hAHJSDFHDSAJFjkHJDSKDASFJDFH
+STATIC_DIR: ./static/
+VID_PATH: ./static/downloaded_video/
+AUD_PATH: ./static/downloaded_audio/

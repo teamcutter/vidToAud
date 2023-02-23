@@ -8,9 +8,8 @@ import (
 )
 
 func main() {
-
-	conf := config.GetConfig()
+	config.GetConfig()
 	server := gin.Default()
-	routes.SetUpRoutes(server, conf)
+	routes.SetUpRoutes(server, config.Conf)
 	server.Run(":8080")
 }

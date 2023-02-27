@@ -1,15 +1,21 @@
 package main
 
 import (
+	"log"
+
 	"github.com/teamcutter/vidToAud/backend/internal/config"
 	"github.com/teamcutter/vidToAud/backend/internal/routes"
 
 	"github.com/gin-gonic/gin"
 )
 
-func main() {
+func init() {
 	config.GetConfig()
+	log.Println("Initialize config...")
+}
+
+func main() {
 	server := gin.Default()
 	routes.SetUpRoutes(server, config.Conf)
-	server.Run(":8080")
+	server.Run(":" + config.Conf.DEBUG_PORT)
 }

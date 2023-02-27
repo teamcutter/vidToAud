@@ -1,8 +1,6 @@
 package config
 
 import (
-	"log"
-
 	"github.com/spf13/viper"
 )
 
@@ -11,6 +9,8 @@ type Configuration struct {
 	STATIC_DIR string
 	VID_PATH   string
 	AUD_PATH   string
+	DEBUG_PORT string
+	PROD_PORT  string
 }
 
 var Conf Configuration
@@ -33,5 +33,4 @@ func GetConfig() {
 	}
 
 	Conf = conf
-	log.Println(Conf.STATIC_DIR)
 }

@@ -7,5 +7,5 @@ import (
 )
 
 func SetUpRoutes(s *gin.Engine, conf config.Configuration) {
-	s.GET("/:videoID", handlers.GetVideoAndAudio)
+	s.GET("/:videoURL", handlers.GetAudioFromVideo)
 }

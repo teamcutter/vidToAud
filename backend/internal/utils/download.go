@@ -12,10 +12,10 @@ import (
 	"github.com/ztrue/tracerr"
 )
 
-func DownloadVideo(videoID string) string {
+func DownloadVideo(videoURL string) string {
 	client := youtube.Client{}
 
-	video, err := client.GetVideo(videoID)
+	video, err := client.GetVideo(videoURL)
 	if err != nil {
 		err = tracerr.Wrap(err)
 		tracerr.PrintSourceColor(err)
@@ -28,7 +28,7 @@ func DownloadVideo(videoID string) string {
 	}
 	defer stream.Close()
 
-	filename := CreateFilename(videoID, video.Title, time.Now())
+	filename := CreateFilename(videoURL, video.Title, time.Now())
 	file, err := os.Create(config.Conf.VID_PATH + filename + ".mp4")
 
 	if err != nil {

@@ -16,6 +16,8 @@ func init() {
 
 func main() {
 	server := gin.Default()
+	server.Static("./static/downloaded_audio/", "./static")
+	server.LoadHTMLGlob("./templates/*.html")
 	routes.SetUpRoutes(server, config.Conf)
 	server.Run(":" + config.Conf.DEBUG_PORT)
 }

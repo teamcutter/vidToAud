@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/teamcutter/vidToAud/backend/internal/config"
+	"github.com/teamcutter/vidToAud/backend/internal/middlewares"
 	"github.com/teamcutter/vidToAud/backend/internal/routes"
 
 	"github.com/gin-gonic/gin"
@@ -16,6 +17,7 @@ func init() {
 
 func main() {
 	server := gin.Default()
+	server.Use(middlewares.CorsMiddleware())
 	routes.SetUpRoutes(server, config.Conf)
 	server.Run(":" + config.Conf.DEBUG_PORT)
 }

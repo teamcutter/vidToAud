@@ -7,5 +7,5 @@ import (
 )
 
 func SetUpRoutes(s *gin.Engine, conf config.Configuration) {
-	s.GET("/:videoURL", handlers.GetAudioFromVideo)
+	s.GET("/api/audio/:videoURL", handlers.GetAudioFromVideo)
 }

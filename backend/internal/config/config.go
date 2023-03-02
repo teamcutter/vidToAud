@@ -6,7 +6,6 @@ import (
 
 type Configuration struct {
 	Token      string
-	STATIC_DIR string
 	VID_PATH   string
 	AUD_PATH   string
 	DEBUG_PORT string

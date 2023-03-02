@@ -11,5 +11,9 @@ func GetAudioFromVideo(c *gin.Context) {
 	videoURL := c.Param("videoURL")
 	fileName := utils.DownloadVideo(videoURL)
 	utils.ExtractAudio(fileName)
-	c.File(config.Conf.AUD_PATH + fileName)
+	// Set the Content-Disposition header to attachment
+	c.Header("Content-Disposition", "attachment; filename="+fileName+".mp3")
+	// Set the Content-Type header to audio/mpeg
+	c.Header("Content-Type", "audio/mpeg")
+	c.File(config.Conf.AUD_PATH + fileName + ".mp3")
 }

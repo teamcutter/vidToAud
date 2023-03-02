@@ -5,15 +5,18 @@
         <input v-model="query" type="text" placeholder="Search for audio">
         <button type="submit">Search</button>
       </form>
-      <audio v-if="audioUrl" :src="audioUrl" controls></audio>
+      <div v-if="audioUrl">
+      <a :href="audioUrl" download>
+        <button>Download Audio</button>
+      </a>
+    </div>
       </div>
-      <div ref="spinner"></div>
     </div>
 </template>
 
 <script>
 import axios from "axios"
-import Spinner from 'spin.js'
+import { Spinner } from 'spin.js'
 
 export default {
   name: 'MainPage',
@@ -22,6 +25,7 @@ export default {
       query: '',
       audioUrl: '',
       spinner: null,
+      loading: false,
       //eslint-disable-next-line
       regExp: /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/,
     };
@@ -45,6 +49,7 @@ export default {
   methods: {
     
     async search() {
+      this.loading = true;
       this.spinner.spin(this.$refs.spinner)
       let extractVideo = (url) => {
         const match = url.match(this.regExp);
@@ -58,12 +63,18 @@ export default {
 
       let videoID = extractVideo(this.query)
       await axios
-        .get(`http://localhost:8080/api/audio/${videoID}`)
+        .get(`http://localhost:8080/api/audio/${videoID}`, {
+          responseType: 'blob'
+        })
         .then((response) => {
+          this.loading = false;
           this.spinner.stop()
-          this.audioUrl = URL.createObjectURL(response.data);
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          console.log(url);
+          this.audioUrl = url;
         })
         .catch((error) => {
+          this.loading = false;
           this.spinner.stop()
           console.error(error);
         });

@@ -69,7 +69,7 @@ export default {
         .then((response) => {
           this.loading = false;
           this.spinner.stop()
-          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const url = window.URL.createObjectURL(new Blob([response.data], {type: 'audio/mp3'}));
           console.log(url);
           this.audioUrl = url;
         })
